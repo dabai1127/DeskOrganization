@@ -1,0 +1,184 @@
+/* A little paper-and-clothespin world that stays readable over any wallpaper. */
+:root {
+  --ink: #294436;
+  --serif: "KaiTi", "STKaiti", "Songti SC", Georgia, serif;
+}
+
+.desk-toolbar {
+  min-height: 62px;
+  padding: 9px 12px 9px 19px;
+  border: 2px solid #fffdf1;
+  border-radius: 20px;
+  background: linear-gradient(105deg, #fff9eaf7 0%, #fffdf3f4 55%, #f5f8e8f8 100%);
+  box-shadow: 0 5px 0 #baae8359, 0 14px 28px #211c1133;
+  backdrop-filter: none;
+}
+.desk-toolbar::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed #b8b78a80;
+  border-radius: 15px;
+  pointer-events: none;
+}
+.identity { gap: 12px; color: #536c52; font-size: 12px; }
+.identity-pin {
+  display: grid;
+  place-items: center;
+  flex: 0 0 37px;
+  height: 37px;
+  border: 1px solid #e9b968;
+  border-radius: 50%;
+  background: #ffe09a;
+  box-shadow: 0 2px 0 #d5a65a;
+  color: #a75a31;
+  font-size: 27px;
+  animation: sunNod 8s ease-in-out infinite;
+}
+.identity strong { font-size: 23px; letter-spacing: -1.2px; color: #31543d; }
+.identity-sub { font-size: 11px; letter-spacing: .3px; color: #8b825b; }
+.identity-divider { height: 25px; background: #c9ccaa; }
+#deskSummary { font-weight: 650; color: #4d6b51; }
+
+.tools { position: relative; z-index: 1; gap: 8px; }
+.tools button {
+  min-height: 38px;
+  border-radius: 11px;
+  font-size: 12px;
+  transition: translate .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.tools button:hover:not(:disabled) { translate: 0 -3px; }
+.tools button:active:not(:disabled) { translate: 0 1px; }
+.small-tool {
+  padding: 0 12px;
+  border: 1px solid #bfd0b6;
+  background: #f7f9e9;
+  box-shadow: 0 3px 0 #c8d4b7;
+  color: #3b6545;
+}
+.small-tool:hover:not(:disabled) { background: #e9f5df; box-shadow: 0 5px 0 #bbd1ae; }
+.small-tool[data-empty="true"] { border-style: dashed; color: #859883; }
+.organize-tool {
+  padding: 0 12px 0 15px;
+  border: 1px solid #2b6446;
+  background: linear-gradient(140deg, #498863, #2d6648);
+  box-shadow: 0 4px 0 #244d38, 0 5px 12px #284d3250;
+  color: #fffdf4;
+}
+.organize-tool:hover:not(:disabled) { background: linear-gradient(140deg, #5aa174, #347952); box-shadow: 0 6px 0 #244d38, 0 8px 15px #284d3250; }
+.organize-tool b { min-width: 25px; height: 23px; border-radius: 8px; background: #fff9; color: #31583b; font-size: 11px; }
+.organize-tool[data-empty="true"] { background: #688a70; }
+.manage-tool { background: #fffbec; }
+
+.line-scene { overflow: hidden; }
+.sky-doodle {
+  position: absolute;
+  z-index: 0;
+  top: 3px;
+  right: 4%;
+  width: 210px;
+  height: 190px;
+  color: #fff6ce;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 3px #27382172);
+}
+.doodle-sun { position: absolute; top: 10px; right: 25px; font-size: 57px; animation: sunNod 8s ease-in-out infinite; }
+.doodle-cloud { position: absolute; top: 63px; right: 77px; font-size: 47px; color: #fffcf0; animation: cloudFloat 9s ease-in-out infinite; }
+.doodle-wind { position: absolute; top: 122px; right: 26px; font-size: 31px; color: #e7f4d6; letter-spacing: 3px; animation: windFloat 7s ease-in-out infinite; }
+.rope { filter: drop-shadow(0 3px 1px #3f281b77); }
+.rope path { stroke: #a76946; stroke-width: 4; }
+.rope .rope-highlight { stroke: #e9bc78; stroke-width: 1.2; translate: 0 -1px; }
+.rail-end { color: #ffdc86; font-size: 26px; animation: twinkle 5s ease-in-out infinite; }
+.rail-end-right { animation-delay: -2.5s; }
+
+.desk-rail { gap: 20px; }
+.desk-card { flex-basis: 160px; width: 160px; height: 158px; }
+.desk-card:hover { translate: 0 -10px; scale: 1.05; filter: brightness(1.06); }
+.hang-thread { left: 80px; border-left: 2px dashed #d7a875; }
+.hang-pin {
+  left: 72px;
+  width: 16px;
+  border: 1px solid #ae6b36;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #bf7641 0 26%, #f8c47c 31% 64%, #ad663a 69%);
+  box-shadow: 2px 3px 0 #71421b77;
+}
+.desk-folder {
+  width: 160px;
+  height: 156px;
+  padding: 12px 13px 10px;
+  border: 2px solid #fff8e9;
+  border-radius: 7px 16px 12px 13px;
+  background: linear-gradient(150deg, #fff9 0%, transparent 46%), repeating-linear-gradient(0deg, transparent 0 21px, #fff2 22px 23px), var(--surface);
+  box-shadow: 3px 5px 0 var(--edge), 6px 10px 0 #fff7, 8px 14px 20px #17271d70;
+  rotate: var(--tilt);
+  transition: rotate .28s ease, box-shadow .28s ease;
+}
+.desk-card:hover .desk-folder { rotate: 0deg; box-shadow: 3px 7px 0 var(--edge), 8px 14px 23px #17271d85; }
+.desk-folder::before { inset: 7px; border: 1px dashed #fffbea; border-radius: 4px 12px 9px 10px; }
+.desk-folder::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: 13px;
+  width: 40px;
+  height: 13px;
+  border: 1px solid #fff9;
+  border-radius: 2px;
+  background: repeating-linear-gradient(45deg, #fffbdfc7 0 5px, #fff7 5px 10px);
+  box-shadow: 0 2px 3px #6b4c2850;
+  rotate: 8deg;
+  pointer-events: none;
+}
+.desk-folder-tab { top: -11px; width: 62px; height: 16px; border: 2px solid #fff8e9; border-bottom: 0; border-radius: 7px 8px 0 0; }
+.desk-folder.cream { --surface: #f5dd9c; --edge: #c29b54; --accent: #885b27; }
+.desk-folder.pink { --surface: #f5bbb2; --edge: #c3827a; --accent: #984f56; }
+.desk-folder.blue { --surface: #a9dae8; --edge: #71a7ba; --accent: #3e7184; }
+.desk-folder.mint { --surface: #bce4bb; --edge: #7ab482; --accent: #477c54; }
+.desk-folder.lavender { --surface: #d7c3eb; --edge: #a88dc3; --accent: #74598c; }
+.desk-folder.peach { --surface: #f4c59e; --edge: #ce9167; --accent: #a05e39; }
+.desk-folder.yellow { --surface: #f2e3a5; --edge: #c6ad5e; --accent: #847039; }
+.desk-folder.sage { --surface: #d2e6b1; --edge: #9cb879; --accent: #607d45; }
+.desk-folder.stone { --surface: #e0d7c4; --edge: #b3a691; --accent: #756a58; }
+.card-top small { font-family: var(--sans); font-size: 9px; font-weight: 800; letter-spacing: 1.2px; }
+.card-top span { font-size: 18px; line-height: 1; }
+.category-icon { width: 43px; height: 43px; margin: 6px 0 5px; border: 2px solid #fff9; border-radius: 13px; background: #fff8; rotate: -7deg; }
+.category-icon svg { width: 23px; height: 23px; }
+.desk-folder strong { font-size: 19px; line-height: 1.12; }
+.desk-folder em { margin-top: 4px; font-size: 10px; font-weight: 650; }
+.card-preview { padding-top: 6px; font-size: 10px; color: #435744; }
+
+.rail-bottom {
+  top: 362px;
+  left: 40px;
+  right: auto;
+  width: max-content;
+  max-width: calc(100% - 80px);
+  min-height: 37px;
+  padding: 4px 5px 4px 13px;
+  border: 1px solid #fff9eb;
+  border-radius: 999px;
+  background: #fffae8ef;
+  box-shadow: 0 3px 0 #88764e80, 0 7px 16px #17271d35;
+  color: #486349;
+  text-shadow: none;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+.rail-bottom button { width: 28px; height: 28px; border-color: #cfddbd; background: #eff8df; box-shadow: 0 2px 0 #b8cba9; }
+.rail-bottom button:hover:not(:disabled) { background: #dbf0cb; translate: 0 -2px; }
+.desk-popover { border: 2px solid #fff8e7; border-radius: 16px; background: #fffaf0fc; box-shadow: 0 5px 0 #a79873, 0 19px 40px #17291d78; backdrop-filter: none; }
+.popover-head { background: linear-gradient(120deg, #fff2cc, #f3f4dd); border-bottom: 1px dashed #c9b99c; }
+.popover-head h2 { color: #31543d; }
+.popover-item:hover { background: #e6f3d9; }
+
+@keyframes sunNod { 0%, 100% { rotate: -10deg; } 50% { rotate: 10deg; } }
+@keyframes cloudFloat { 0%, 100% { translate: 0 0; } 50% { translate: -13px -4px; } }
+@keyframes windFloat { 0%, 100% { translate: 0 0; opacity: .6; } 50% { translate: -20px 0; opacity: 1; } }
+@keyframes twinkle { 0%, 100% { scale: 1; opacity: .7; } 50% { scale: 1.2; opacity: 1; } }
+
+@media (max-width: 1700px) { .sky-doodle { display: none; } }
+@media (max-width: 1050px) { .desk-rail { gap: 14px; } .rail-bottom { left: 26px; } }
+@media (max-width: 670px) { .desk-card, .desk-folder { width: 140px; } .desk-card { flex-basis: 140px; } .desk-folder strong { font-size: 16px; } .identity strong { font-size: 19px; } }
+@media (prefers-reduced-motion: reduce) { .identity-pin, .doodle-sun, .doodle-cloud, .doodle-wind, .rail-end { animation: none; } .tools button, .desk-folder { transition: none; } }

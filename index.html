@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'">
+  <title>晾一晾 · 桌面整理</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <svg class="icon-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7.5a2 2 0 0 1 2-2h4.4l2 2H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 10h18"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9zM19 17l.7 1.3L21 19l-1.3.7L19 21l-.7-1.3L17 19l1.3-.7z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.5 9A7 7 0 0 1 18 7l2 5M4 12l2 5a7 7 0 0 0 12.5-2"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-2"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M13 5h6v6M19 5l-9 9M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.3"/><path d="m4 18 5-5 3 3 3-4 5 5"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M10 18V5l9-2v13M10 8l9-2"/><ellipse cx="7" cy="18.5" rx="3" ry="2"/><ellipse cx="16" cy="16.5" rx="3" ry="2"/></symbol>
+    <symbol id="i-archive" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h16M10 4v5M14 4v5M10 13h4v4h-4z"/></symbol>
+    <symbol id="i-install" viewBox="0 0 24 24"><path d="M12 3v11m-4-4 4 4 4-4M4 16v4h16v-4"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a5 5 0 0 0 7.1 0l2.1-2.1a5 5 0 0 0-7.1-7.1L10.5 6.4M14 10a5 5 0 0 0-7.1 0l-2.1 2.1a5 5 0 0 0 7.1 7.1l1.6-1.6"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 8h11a3 3 0 1 0-3-3M2 12h17a2.5 2.5 0 1 1-2.5 2.5M4 16h7a3 3 0 1 1-3 3"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand" aria-label="晾一晾 桌面整理">
+        <span class="brand-mark"><span class="brand-line"></span><span class="brand-peg"></span><span class="brand-paper"></span></span>
+        <span class="brand-name">晾一晾<span class="brand-dot">.</span></span>
+        <span class="brand-divider"></span>
+        <span class="brand-sub">桌面整理工作室</span>
+      </div>
+      <div class="top-actions">
+        <span class="live-indicator"><span></span> 本地整理 · 安心存放</span>
+        <button class="outline-button" id="showDesktopButton" type="button">↙ 回到桌面</button>
+        <button class="text-button" id="refreshButton" type="button"><svg><use href="#i-refresh"></use></svg>刷新</button>
+        <button class="outline-button" id="chooseButton" type="button"><svg><use href="#i-folder"></use></svg> 切换文件夹</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> YOUR DESKTOP, REIMAGINED <span class="eyebrow-star">✳</span></div>
+          <h1>让桌面上的<span class="scribble">每一件事</span><br>都有地方<span class="serif-mark">晾</span>一晾。</h1>
+          <p class="hero-description">轻轻一按，文件各归其位。顺着这根晒衣绳，重新找回桌面的呼吸感。</p>
+          <div class="hero-actions">
+            <button class="primary-button" id="organizeButton" type="button"><svg><use href="#i-spark"></use></svg><span>一键整理桌面</span><svg class="action-arrow"><use href="#i-arrow"></use></svg></button>
+            <button class="plain-link" id="openRootButton" type="button">打开当前文件夹 <svg><use href="#i-external"></use></svg></button>
+          </div>
+        </div>
+        <aside class="workspace-card" aria-label="当前工作区">
+          <div class="workspace-header"><span>当前工作区</span><span class="workspace-index">01 / DESKTOP</span></div>
+          <div class="workspace-icon"><svg><use href="#i-folder"></use></svg><span class="workspace-sun">✳</span></div>
+          <div class="workspace-label">正在整理</div>
+          <div class="workspace-path" id="rootPath" title="">读取中…</div>
+          <div class="workspace-footer"><span><strong id="totalCount">—</strong> 件物品</span><span><strong id="pendingCount">—</strong> 件待归位</span></div>
+        </aside>
+      </section>
+
+      <section class="clothesline-section" aria-label="分类衣绳">
+        <div class="section-heading">
+          <div><span class="section-kicker">THE CLOTHESLINE</span><h2>分类衣绳 <span class="section-count" id="categoryCount">/ 09</span></h2></div>
+          <div class="section-heading-right"><span>点开文件夹，看看里面有什么</span><button id="windButton" class="wind-button" type="button" aria-label="吹一阵风，让文件夹摇摆"><svg><use href="#i-wind"></use></svg> 吹一阵风</button><div class="rail-controls"><button id="scrollLeft" type="button" aria-label="向左浏览分类"><svg><use href="#i-chevron"></use></svg></button><button id="scrollRight" type="button" aria-label="向右浏览分类"><svg><use href="#i-chevron"></use></svg></button></div></div>
+        </div>
+        <div class="clothesline-scene">
+          <svg class="rope" viewBox="0 0 1400 80" preserveAspectRatio="none" aria-hidden="true"><path class="rope-shadow" d="M-20 12 C 270 48, 600 52, 820 45 S 1210 25, 1420 5"/><path class="rope-main" d="M-20 10 C 270 46, 600 50, 820 43 S 1210 23, 1420 3"/></svg>
+          <div class="wind-trails" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div class="scene-doodle scene-doodle-left" aria-hidden="true">✳</div><div class="scene-doodle scene-doodle-right" aria-hidden="true">✴</div>
+          <div class="folder-rail" id="folderRail" tabindex="0" aria-label="横向滚动的分类文件夹"></div>
+        </div>
+        <div class="scene-caption"><span>轻轻晃一晃，杂乱就有了秩序。</span><span id="railPosition">01 — 09</span></div>
+      </section>
+
+      <section class="dashboard">
+        <div class="pending-panel">
+          <div class="panel-header"><div><span class="section-kicker">UP NEXT</span><h2>等待归位 <span id="pendingBadge" class="badge">0</span></h2></div><button class="panel-link" id="viewAllButton" type="button">查看全部 <svg><use href="#i-arrow"></use></svg></button></div>
+          <div id="pendingList" class="pending-list"></div>
+        </div>
+        <div class="note-panel">
+          <div class="note-top"><span class="note-pin"></span><span>一张给桌面的小纸条</span><span>✳</span></div>
+          <div class="note-illustration" aria-hidden="true"><span class="little-rope"></span><span class="little-peg peg-one"></span><span class="little-peg peg-two"></span><span class="little-paper paper-one"></span><span class="little-paper paper-two"></span></div>
+          <h3>整整齐齐，<br>心也轻一点。</h3>
+          <p>文件会被放进当前文件夹下的「晾一晾-已整理」。整理完不满意，还能一键撤销。</p>
+          <div class="note-actions"><button id="undoButton" class="undo-button" type="button"><svg><use href="#i-undo"></use></svg> 撤销上次整理</button><button id="openManagedButton" class="note-open" type="button">打开整理结果 <svg><use href="#i-chevron"></use></svg></button></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><span>晾一晾 <b>✳</b> 把日常收拾成喜欢的样子</span><span>LOCAL FIRST · MADE FOR YOUR DESKTOP</span></footer>
+  </div>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+  <aside class="detail-drawer" id="detailDrawer" aria-hidden="true" aria-label="文件详情">
+    <div class="drawer-head"><div><span class="section-kicker" id="drawerKicker">FOLDER DETAILS</span><h2 id="drawerTitle">文件夹</h2><p id="drawerSubtitle"></p></div><button class="drawer-close" id="drawerClose" type="button" aria-label="关闭详情"><svg><use href="#i-close"></use></svg></button></div>
+    <div class="drawer-body" id="drawerBody"></div>
+    <div class="drawer-foot"><span>双击文件即可打开</span><button id="drawerOpenManaged" type="button">打开整理目录 <svg><use href="#i-external"></use></svg></button></div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="renderer.js"></script>
+</body>
+</html>

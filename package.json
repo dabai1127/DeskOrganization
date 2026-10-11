@@ -1,0 +1,14 @@
+{
+  "name": "liang-yiliang-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "把桌面文件晾成整齐的风景",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node organizer.test.js"
+  },
+  "devDependencies": {
+    "electron": "35.3.0"
+  }
+}

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'">
+  <title>晾一晾 · 桌面衣绳</title>
+  <link rel="stylesheet" href="desktop.css">
+  <link rel="stylesheet" href="desktop-playful.css">
+</head>
+<body>
+  <svg class="defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="folder" viewBox="0 0 24 24"><path d="M3 7.5a2 2 0 0 1 2-2h4.4l2 2H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 10h18"/></symbol>
+    <symbol id="file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/></symbol>
+    <symbol id="image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.3"/><path d="m4 18 5-5 3 3 3-4 5 5"/></symbol>
+    <symbol id="video" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/></symbol>
+    <symbol id="music" viewBox="0 0 24 24"><path d="M10 18V5l9-2v13M10 8l9-2"/><ellipse cx="7" cy="18.5" rx="3" ry="2"/><ellipse cx="16" cy="16.5" rx="3" ry="2"/></symbol>
+    <symbol id="archive" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h16M10 4v5M14 4v5M10 13h4v4h-4z"/></symbol>
+    <symbol id="install" viewBox="0 0 24 24"><path d="M12 3v11m-4-4 4 4 4-4M4 16v4h16v-4"/></symbol>
+    <symbol id="link" viewBox="0 0 24 24"><path d="M10 14a5 5 0 0 0 7.1 0l2.1-2.1a5 5 0 0 0-7.1-7.1L10.5 6.4M14 10a5 5 0 0 0-7.1 0l-2.1 2.1a5 5 0 0 0 7.1 7.1l1.6-1.6"/></symbol>
+    <symbol id="more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+    <symbol id="spark" viewBox="0 0 24 24"><path d="m12 2 1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9z"/></symbol>
+    <symbol id="undo" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-2"/></symbol>
+    <symbol id="close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="wind" viewBox="0 0 24 24"><path d="M3 8h11a3 3 0 1 0-3-3M2 12h17a2.5 2.5 0 1 1-2.5 2.5M4 16h7a3 3 0 1 1-3 3"/></symbol>
+  </svg>
+
+  <main class="desktop-layer">
+    <div class="desk-toolbar">
+      <div class="identity"><span class="identity-pin">☀</span><strong>晾一晾</strong><span class="identity-sub">把文件晾成好心情</span><span class="identity-divider"></span><span id="deskSummary">正在查看桌面…</span></div>
+      <div class="tools">
+        <button id="deskWind" type="button" class="small-tool" title="吹一阵风"><svg><use href="#wind"></use></svg><span>吹一阵风</span></button>
+        <button id="deskUndo" type="button" class="small-tool" title="撤销上次整理"><svg><use href="#undo"></use></svg><span>撤销</span></button>
+        <button id="deskOrganize" type="button" class="organize-tool"><svg><use href="#spark"></use></svg><span>整理桌面</span><b id="deskPending">0</b></button>
+        <button id="deskManage" type="button" class="small-tool manage-tool" title="打开管理面板">管理面板 <svg><use href="#arrow"></use></svg></button>
+      </div>
+    </div>
+
+    <section class="line-scene" aria-label="桌面分类衣绳">
+      <div class="sky-doodle" aria-hidden="true"><span class="doodle-sun">☀</span><span class="doodle-cloud">☁</span><span class="doodle-wind">⌁ &nbsp;⌁ &nbsp;⌁</span></div>
+      <svg class="rope" viewBox="0 0 1600 90" preserveAspectRatio="none" aria-hidden="true"><path d="M-30 18 C280 47 585 67 825 62 S1340 40 1630 13"/><path class="rope-highlight" d="M-30 18 C280 47 585 67 825 62 S1340 40 1630 13"/></svg>
+      <div class="desk-rail" id="deskRail"></div>
+      <span class="rail-end rail-end-left">✳</span><span class="rail-end rail-end-right">✳</span>
+    </section>
+
+    <div class="rail-bottom"><span>✳ &nbsp;今天也把文件晾得整整齐齐</span><div><button id="deskLeft" type="button" aria-label="向左浏览">←</button><button id="deskRight" type="button" aria-label="向右浏览">→</button></div></div>
+
+    <aside class="desk-popover" id="deskPopover" hidden aria-label="分类文件">
+      <div class="popover-head"><div><small id="popoverKicker">HANGING FOLDER / 01</small><h2 id="popoverTitle">文档资料</h2><p id="popoverSummary"></p></div><button id="popoverClose" type="button" aria-label="关闭">×</button></div>
+      <div class="popover-list" id="popoverList"></div>
+      <div class="popover-foot"><span>双击文件打开</span><button id="popoverManaged" type="button">打开整理目录 ↗</button></div>
+    </aside>
+    <div class="desk-toast" id="deskToast" role="status" aria-live="polite"></div>
+  </main>
+  <script src="desktop.js"></script>
+</body>
+</html>
